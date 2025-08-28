@@ -1,0 +1,43 @@
+<!-- novalidate permet d'empecher le rechargement de la page -->
+<!-- l'evenement lié au ngSubmit ne se déclenche que si le form est valid-->
+<form novalidate (ngSubmit)="loginForm.valid && sendContact()" #loginForm="ngForm">
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      name="email"
+      [(ngModel)]="email"
+      #emailRef="ngModel"
+      required
+      email
+      placeholder="example@domaine.fr"
+    />
+    <!-- on affiche l'erreur que si l'input a été touché-->
+    @if(emailRef.touched && emailRef.errors){ @if(emailRef.errors['required'] ||
+    emailRef.errors['email']){
+    <div class="alert alert-danger">Veuillez entrer un email valide</div>
+    } }
+  </div>
+
+  <div class="mb-3">
+    <label for="password" class="form-label">Mot de passe</label>
+    <input
+      type="password"
+      class="form-control"
+      name="password"
+      [(ngModel)]="password"
+      #passwordRef="ngModel"
+      required
+      minlength="8"
+    />
+    <!-- on affiche l'erreur que si l'input a été touché-->
+    @if(passwordRef.touched && passwordRef.errors){ @if(passwordRef.errors['required']){
+    <div class="alert alert-danger">Veuillez entrer un mot de passe</div>
+    } @if(passwordRef.errors['minlength']){
+    <div class="alert alert-danger">Le mot de passe doit contenir au moins 8 caractères</div>
+    } }
+  </div>
+
+  <button type="submit" class="btn btn-primary">Envoyer</button>
+</form>
